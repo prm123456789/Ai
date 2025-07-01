@@ -2,20 +2,27 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>INCONNU XD - Chatbot AI</title>
+  <title>INCONNU XD - Chatbot IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; }
-    h1 { color: #00ffff; }
-    #chat { border: 1px solid #555; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px; }
-    input, button { padding: 10px; font-size: 16px; }
-    input { width: 70%; }
-    button { width: 28%; background: #00ffff; color: #111; border: none; }
+    body { font-family: "Courier New", monospace; background: #0d0d0d; color: #eee; margin: 0; padding: 20px; }
+    h1 { color: #00ffff; text-align: center; }
+    #chat { border: 1px solid #333; background: #1a1a1a; padding: 15px; height: 60vh; overflow-y: auto; margin-bottom: 15px; border-radius: 10px; }
+    input, button { padding: 12px; font-size: 16px; border-radius: 8px; border: none; }
+    input { width: 70%; margin-right: 5px; background: #333; color: #eee; }
+    button { width: 25%; background: #00ffff; color: #000; cursor: pointer; }
+    button:hover { background: #00e6e6; }
+    .message { margin: 8px 0; }
+    .user { color: #00ffff; }
+    .bot { color: #ffff00; }
+    .intro { text-align: center; color: #aaa; margin-bottom: 20px; }
   </style>
 </head>
 <body>
-  <h1>🤖 INCONNU XD - AI Chatbot</h1>
+  <h1>🤖 INCONNU XD</h1>
+  <p class="intro">Bienvenue sur INCONNU XD, le chatbot IA développé par INCONNU BOY.<br/>Tape ta question ci-dessous et discute en temps réel !</p>
   <div id="chat"></div>
-  <input id="userInput" type="text" placeholder="Tape ta question..." />
+  <input id="userInput" type="text" placeholder="Pose ta question ici..." />
   <button onclick="sendMessage()">Envoyer</button>
 
   <script>
@@ -25,7 +32,7 @@
       const message = input.value.trim();
       if (!message) return;
 
-      chat.innerHTML += `<p><b>Toi:</b> ${message}</p>`;
+      chat.innerHTML += `<div class="message user"><b>Toi:</b> ${message}</div>`;
       input.value = "";
       chat.scrollTop = chat.scrollHeight;
 
@@ -36,10 +43,10 @@
           body: JSON.stringify({message})
         });
         const data = await res.json();
-        chat.innerHTML += `<p><b>INCONNU XD:</b> ${data.reply}</p>`;
+        chat.innerHTML += `<div class="message bot"><b>INCONNU XD:</b> ${data.reply}</div>`;
         chat.scrollTop = chat.scrollHeight;
       } catch (err) {
-        chat.innerHTML += `<p style="color:red;">Erreur: ${err.message}</p>`;
+        chat.innerHTML += `<div class="message bot" style="color:red;"><b>Erreur:</b> ${err.message}</div>`;
       }
     }
   </script>
